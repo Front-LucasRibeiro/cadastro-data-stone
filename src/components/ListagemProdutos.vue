@@ -26,6 +26,8 @@
 					</tr>
 				</tbody>
 			</table>
+
+			<p v-show="listaVazia" colspan="7" class="lista-vazia">Nenhum registro na lista</p>
 		</div>
 
 		<div v-show="showForm">
@@ -73,12 +75,17 @@ export default {
 			showModal: false,
 			listaProdutos: [],
 			showForm: false,
+			listaVazia: false
 		};
 	},
 
 	mounted() {
-		let produtos = localStorage.getItem('produtos')
-		this.listaProdutos = JSON.parse(produtos)
+		let produtos = JSON.parse(localStorage.getItem('produtos'))
+		this.listaProdutos = produtos
+
+		if(produtos === null){
+			this.listaVazia = true
+		}
 	},
 
 	methods: {

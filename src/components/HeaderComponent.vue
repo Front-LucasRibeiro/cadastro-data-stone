@@ -22,7 +22,9 @@
 				<li>
 					<router-link to="/produtos">Produtos</router-link>
 				</li>
-				<li>Associar Produtos</li>
+				<li>
+					<router-link to="/associar-produtos">Associar Produtos</router-link>
+				</li>
 			</ul>
 		</nav>
 	</header>

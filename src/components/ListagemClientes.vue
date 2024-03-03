@@ -33,6 +33,8 @@
 					</tr>
 				</tbody>
 			</table>
+
+			<p v-show="listaVazia" colspan="7" class="lista-vazia">Nenhum registro na lista</p>
 		</div>
 
 		<div v-show="showForm">
@@ -89,12 +91,17 @@ export default {
 			showModal: false,
 			listaClientes: [],
 			showForm: false,
+			listaVazia: false
 		};
 	},
 
 	mounted() {
-		let clientes = localStorage.getItem('clientes')
-		this.listaClientes = JSON.parse(clientes)
+		let clientes = JSON.parse(localStorage.getItem('clientes'))
+		this.listaClientes = clientes
+
+		if(clientes === null){
+			this.listaVazia = true
+		}
 	},
 
 	methods: {
