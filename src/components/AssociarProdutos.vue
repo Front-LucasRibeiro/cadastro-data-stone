@@ -81,37 +81,37 @@ export default {
 		let clientes = JSON.parse(localStorage.getItem('clientes'))
 		let produtos = JSON.parse(localStorage.getItem('produtos'))
 
-		if (clientes !== null){
+		if (clientes !== null) {
 
 			clientes.map(cliente => {
-				if(cliente.ativo === 'sim'){
+				if (cliente.ativo === 'sim') {
 					let produtosAssociadosAtivos = []
-	
-					if(cliente.produtosAssociados){
+
+					if (cliente.produtosAssociados) {
 						cliente.produtosAssociados = cliente.produtosAssociados.split(',')
-		
+
 						cliente.produtosAssociados.map(produtosAssociado => {
 							produtos.map(produto => {
-								if(produtosAssociado === produto.nome){
-									if(produto.ativo === 'sim'){
+								if (produtosAssociado === produto.nome) {
+									if (produto.ativo === 'sim') {
 										cliente.produtosAssociados = produto.nome
 										produtosAssociadosAtivos.push(cliente.produtosAssociados)
 									}
 								}
 							})
-						})	
+						})
 					}
-	
+
 					cliente.produtosAssociados = produtosAssociadosAtivos.join(',')
 					this.listaClientes.push(cliente)
 				}
 			})
-	
-	
+
+
 			produtos.map(produto => {
 				if (produto.ativo === 'sim') {
 					this.listaProdutos.push(produto)
-				} 
+				}
 			})
 		}
 
@@ -221,7 +221,6 @@ export default {
 	margin-top: 42px;
 	max-height: 350px;
 	max-width: max-content;
-	overflow-x: hidden;
 	margin: 42px auto;
 }
 
@@ -242,10 +241,16 @@ export default {
 		margin: 14px 14px 0 0;
 		cursor: pointer;
 
-		&.selecionado,
-		&:hover {
+		&.selecionado{
 			background-color: $main-color;
 			color: $sec-color;
+		}
+
+		@media(min-width: 1180px) {
+			&:hover {
+				background-color: $main-color;
+				color: $sec-color;
+			}
 		}
 
 		&:last-child {

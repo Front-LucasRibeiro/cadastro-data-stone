@@ -158,6 +158,7 @@ export default {
 			localStorage.setItem('clientes', JSON.stringify(clientesLista))
 
 			this.showModal = true
+			this.showForm = false;
 		},
 		mudarStatusCliente(e) {
 			let clientesLista = JSON.parse(localStorage.getItem('clientes'))
@@ -180,6 +181,7 @@ export default {
 			localStorage.setItem('clientes', JSON.stringify(clientesLista))
 
 			this.showModal = true
+			this.showForm = false;
 		},
 		fecharForm(){
 			this.showForm = false;
@@ -205,7 +207,6 @@ export default {
 	margin-top: 42px;
 	max-height: 350px;
 	max-width: max-content;
-	overflow-x: hidden;
 	margin: 42px auto;
 }
 </style>

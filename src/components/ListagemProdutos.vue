@@ -131,6 +131,7 @@ export default {
 			localStorage.setItem('produtos', JSON.stringify(produtosLista))
 
 			this.showModal = true
+			this.showForm = false;
 		},
 		mudarStatusProduto(e) {
 			let produtosLista = JSON.parse(localStorage.getItem('produtos'))
@@ -153,6 +154,7 @@ export default {
 			localStorage.setItem('produtos', JSON.stringify(produtosLista))
 
 			this.showModal = true
+			this.showForm = false;
 		},
 		fecharForm(){
 			this.showForm = false;
@@ -178,7 +180,6 @@ export default {
 	margin-top: 42px;
 	max-height: 350px;
 	max-width: max-content;
-	overflow-x: hidden;
 	margin: 42px auto;
 }
 </style>
