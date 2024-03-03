@@ -1,0 +1,32 @@
+table{
+	max-width: 100%;
+  width: 768px;
+  margin: 0 auto;
+	border: 1px solid #ddd;
+	border-collapse: collapse;
+
+	thead{
+		height: 40px;
+	}
+
+	th{
+		background-color: $main-color;
+		color: $sec-color;
+		font-weight: normal;
+	}
+	
+	td,th{
+		border: 1px solid #ddd;
+		padding: 0 12px;
+		white-space: nowrap;
+		font-size: $f15;
+		
+		button{
+			&.btn-table{
+				white-space: nowrap;
+				margin: 14px 0;
+			}
+		}
+	}
+
+}

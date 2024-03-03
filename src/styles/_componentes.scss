@@ -1,0 +1,35 @@
+@import './variables';
+
+.title {
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: .5px;
+  margin-top: 78px;
+}
+
+.main {
+  max-width: 100%;
+  display: block;
+  margin: 32px auto;
+  padding: 0 14px;
+  min-height: calc(100vh - 184px);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $main-color;
+  color: $sec-color;
+  border: 0;
+  padding: 4px 12px;
+  border-radius: 3px;
+  width: 100%;
+  margin-top: 22px;
+  height: 38px;
+	text-transform: uppercase;
+	font-size: $f14;
+	letter-spacing: .5px;
+	cursor: pointer;
+}
+

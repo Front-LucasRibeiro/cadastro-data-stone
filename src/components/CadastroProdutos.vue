@@ -1,25 +1,13 @@
 <template>
   <main class="main">
-    <h2 class="title">Cadastro de clientes</h2>
+    <h2 class="title">Cadastro de produtos</h2>
 
     <form @submit.prevent="cadastrar" class="form">
       <div class="form__field">
         <label for="nome">Nome:</label>
         <input type="text" name="nome" id="nome"  v-model="formData.nome">
       </div>
-      <div class="form__field">
-        <label for="documento">RG:</label>
-        <input type="text" name="documento" id="documento" v-model="formData.documento">
-      </div>
-      <div class="form__field">
-        <label for="telefone">Telefone:</label>
-        <input type="text" name="telefone" id="telefone" v-model="formData.telefone">
-      </div>
-      <div class="form__field">
-        <label for="email">E-mail:</label>
-        <input type="text" name="email" id="email" v-model="formData.email">
-      </div>
-      <div class="form__fieldRadio">
+			<div class="form__fieldRadio">
         <label>Ativo:</label>
         <div class="form__fieldRadio--wrapRadios">
           <input type="radio" name="ativo" id="sim" value="sim" checked> 
@@ -28,6 +16,7 @@
           <label for="nao">Não</label>
         </div>
       </div>
+      
       <button type="submit" class="button">Cadastrar</button>
     </form>
   </main>
@@ -35,35 +24,30 @@
 
 <script>
 export default {
-  name: 'CadastroClientes',
+  name: 'CadastroProdutos',
 
 	data(){
 		return {
       formData: {
         nome: '',
-        documento: '',
-        telefone: '',
-        email: '',
 				ativo: ''
       },
     };
 	},
 	methods: {
     cadastrar() {
-			let clientesLista = localStorage.getItem('clientes')
+			let produtosLista = localStorage.getItem('produtos')
 			let valueInputRadio = document.querySelector('input[type="radio"]:checked').value
 
 			this.formData.ativo = valueInputRadio
 
-			if(clientesLista){
-				clientesLista = JSON.parse(clientesLista)
-				clientesLista.push(this.formData)
-				localStorage.setItem('clientes', JSON.stringify(clientesLista) )
-
+			if(produtosLista){
+				produtosLista = JSON.parse(produtosLista)
+				produtosLista.push(this.formData)
+				localStorage.setItem('produtos', JSON.stringify(produtosLista) )
 			}else{
-				localStorage.setItem('clientes', JSON.stringify([this.formData]) )
+				localStorage.setItem('produtos', JSON.stringify([this.formData]) )
 			}
-			
     },
 			
   },

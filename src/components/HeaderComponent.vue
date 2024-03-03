@@ -12,9 +12,13 @@
         <li>
           <router-link to="/cadastro-clientes">Cadastro de clientes</router-link>
         </li>
-        <li>Cadastro de produtos</li>
+        <li>
+					<router-link to="/cadastro-produtos">Cadastro de produtos</router-link>
+				</li>
+        <li>
+					<router-link to="/clientes">Clientes</router-link>
+				</li>
         <li>Produtos</li>
-        <li>Clientes</li>
         <li>Associar Produtos</li>
       </ul>
     </nav>
@@ -54,7 +58,6 @@ export default {
   }
 
   &__menu{
-    
     ul{
       display: flex;
       list-style: none;
@@ -77,6 +80,8 @@ export default {
       }
     }
   }
+
+  
 
 }
 

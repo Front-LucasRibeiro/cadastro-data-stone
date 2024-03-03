@@ -1,0 +1,78 @@
+.form {
+  max-width: 100%;
+  width: 768px;
+  margin: 0 auto;
+	position: relative;
+
+	&__fechar{
+		display: flex;
+    justify-content: flex-end;
+		width: 100%;
+		
+		span{
+			position: relative;
+			font-size: 28px;
+			width: 40px;
+			height: 40px;
+			font-weight: bold;
+			display: flex;
+			justify-content: center;
+			cursor: pointer;
+			align-items: center;
+			border: 1px solid #bbb;
+			border-radius: 3px;
+
+			&:hover{
+				background-color: $main-color;
+				color: $sec-color;
+			}
+		}
+	}
+
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 18px;
+
+    label {
+      font-size: $f14;
+    }
+
+    input {
+      margin-top: 8px;
+      height: 38px;
+      padding: 0 14px;
+    }
+  }
+
+  &__fieldRadio {
+    display: flex;
+    align-items: center;
+
+    > label{
+      margin-right: 12px;
+    }
+
+    &--wrapRadios{
+      display: flex;
+      align-items: center;
+
+			label{
+				cursor: pointer;
+			}
+
+      input{
+        margin: 0 4px;
+      }
+      label[for="sim"]{
+        margin-right: 14px;
+      }
+    }
+
+    label {
+      font-size: $f14;
+    }
+  }
+}
