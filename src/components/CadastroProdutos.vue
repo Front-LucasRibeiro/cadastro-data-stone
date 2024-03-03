@@ -1,4 +1,5 @@
 <template>
+	<ModalMensagem msg="Cadastro realizado com sucesso" :exibe="showModal" @alterar-exibe-modal="changeExibeModal" />
   <main class="main">
     <h2 class="title">Cadastro de produtos</h2>
 
@@ -23,11 +24,16 @@
 </template>
 
 <script>
+import ModalMensagem from "@/components/ModalMensagem.vue";
+
 export default {
   name: 'CadastroProdutos',
-
+	components: {
+		ModalMensagem,
+	},
 	data(){
 		return {
+			showModal: false,
       formData: {
 				id: 1,
         nome: '',
@@ -53,7 +59,14 @@ export default {
 			}else{
 				localStorage.setItem('produtos', JSON.stringify([this.formData]) )
 			}
+
+			this.showModal = true
+
+			this.formData.nome = ''
     },
+		changeExibeModal(novoValor) {
+			this.showModal = novoValor;
+		}
 			
   },
 

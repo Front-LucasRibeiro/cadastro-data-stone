@@ -1,72 +1,87 @@
 <template>
-  <main class="main">
-    <h2 class="title">Cadastro de clientes</h2>
+	<ModalMensagem msg="Cadastro realizado com sucesso" :exibe="showModal" @alterar-exibe-modal="changeExibeModal" />
+	<main class="main">
+		<h2 class="title">Cadastro de clientes</h2>
 
-    <form @submit.prevent="cadastrar" class="form">
-      <div class="form__field">
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome" id="nome"  v-model="formData.nome">
-      </div>
-      <div class="form__field">
-        <label for="documento">RG:</label>
-        <input type="text" name="documento" id="documento" v-model="formData.documento">
-      </div>
-      <div class="form__field">
-        <label for="telefone">Telefone:</label>
-        <input type="text" name="telefone" id="telefone" v-model="formData.telefone">
-      </div>
-      <div class="form__field">
-        <label for="email">E-mail:</label>
-        <input type="text" name="email" id="email" v-model="formData.email">
-      </div>
-      <div class="form__fieldRadio">
-        <label>Ativo:</label>
-        <div class="form__fieldRadio--wrapRadios">
-          <input type="radio" name="ativo" id="sim" value="sim" checked> 
-          <label for="sim">Sim</label>
-          <input type="radio" name="ativo" id="nao" value="nao">
-          <label for="nao">Não</label>
-        </div>
-      </div>
-      <button type="submit" class="button">Cadastrar</button>
-    </form>
-  </main>
+		<form @submit.prevent="cadastrar" class="form">
+			<div class="form__field">
+				<label for="nome">Nome:</label>
+				<input type="text" name="nome" id="nome" v-model="formData.nome">
+			</div>
+			<div class="form__field">
+				<label for="documento">RG:</label>
+				<input type="text" name="documento" id="documento" v-model="formData.documento">
+			</div>
+			<div class="form__field">
+				<label for="telefone">Telefone:</label>
+				<input type="text" name="telefone" id="telefone" v-model="formData.telefone">
+			</div>
+			<div class="form__field">
+				<label for="email">E-mail:</label>
+				<input type="text" name="email" id="email" v-model="formData.email">
+			</div>
+			<div class="form__fieldRadio">
+				<label>Ativo:</label>
+				<div class="form__fieldRadio--wrapRadios">
+					<input type="radio" name="ativo" id="sim" value="sim" checked>
+					<label for="sim">Sim</label>
+					<input type="radio" name="ativo" id="nao" value="nao">
+					<label for="nao">Não</label>
+				</div>
+			</div>
+			<button type="submit" class="button">Cadastrar</button>
+		</form>
+	</main>
 </template>
 
 <script>
-export default {
-  name: 'CadastroClientes',
+import ModalMensagem from "@/components/ModalMensagem.vue";
 
-	data(){
+export default {
+	name: 'CadastroClientes',
+	components: {
+		ModalMensagem,
+	},
+	data() {
 		return {
-      formData: {
-        nome: '',
-        documento: '',
-        telefone: '',
-        email: '',
+			showModal: false,
+			formData: {
+				nome: '',
+				documento: '',
+				telefone: '',
+				email: '',
 				ativo: ''
-      },
-    };
+			},
+		};
 	},
 	methods: {
-    cadastrar() {
+		cadastrar() {
 			let clientesLista = localStorage.getItem('clientes')
 			let valueInputRadio = document.querySelector('input[type="radio"]:checked').value
 
 			this.formData.ativo = valueInputRadio
 
-			if(clientesLista){
+			if (clientesLista) {
 				clientesLista = JSON.parse(clientesLista)
 				clientesLista.push(this.formData)
-				localStorage.setItem('clientes', JSON.stringify(clientesLista) )
+				localStorage.setItem('clientes', JSON.stringify(clientesLista))
 
-			}else{
-				localStorage.setItem('clientes', JSON.stringify([this.formData]) )
+			} else {
+				localStorage.setItem('clientes', JSON.stringify([this.formData]))
 			}
-			
-    },
-			
-  },
+
+			this.showModal = true
+
+			this.formData.nome = ''
+			this.formData.documento = ''
+			this.formData.telefone = ''
+			this.formData.email = ''
+		},
+		changeExibeModal(novoValor) {
+			this.showModal = novoValor;
+		}
+
+	},
 
 }
 </script>
@@ -76,5 +91,4 @@ export default {
 @import '../styles/variables';
 @import '../styles/componentes';
 @import '../styles/form';
-
 </style>

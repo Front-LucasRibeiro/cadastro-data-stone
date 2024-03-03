@@ -1,4 +1,6 @@
 <template>
+	<ModalMensagem msg="Edição realizada com sucesso" :exibe="showModal" @alterar-exibe-modal="changeExibeModal" />
+
 	<main class="main">
 		<h2 class="title">Listagem de clientes</h2>
 
@@ -75,11 +77,16 @@
 </template>
 
 <script>
+import ModalMensagem from "@/components/ModalMensagem.vue";
+
 export default {
 	name: 'ListagemClientes',
-
+	components: {
+		ModalMensagem,
+	},
 	data() {
 		return {
+			showModal: false,
 			listaClientes: [],
 			showForm: false,
 		};
@@ -142,6 +149,8 @@ export default {
 
 			this.listaClientes = clientesLista
 			localStorage.setItem('clientes', JSON.stringify(clientesLista))
+
+			this.showModal = true
 		},
 		mudarStatusCliente(e) {
 			let clientesLista = JSON.parse(localStorage.getItem('clientes'))
@@ -162,9 +171,14 @@ export default {
 
 			this.listaClientes = clientesLista
 			localStorage.setItem('clientes', JSON.stringify(clientesLista))
+
+			this.showModal = true
 		},
 		fecharForm(){
 			this.showForm = false;
+		},
+		changeExibeModal(novoValor) {
+			this.showModal = novoValor;
 		}
 	},
 
