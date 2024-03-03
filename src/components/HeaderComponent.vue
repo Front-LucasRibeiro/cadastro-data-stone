@@ -2,7 +2,7 @@
 	<header class="header">
 
 		<div class="header__logo">
-			<router-link to="/">
+			<router-link to="/cadastro-clientes">
 				<img src="favicon.png" :alt="titulo" />
 				<h1>{{ titulo }}</h1>
 			</router-link>
@@ -11,7 +11,7 @@
 		<nav class="header__menu">
 			<ul>
 				<li>
-					<router-link to="/cadastro-clientes">Cadastro de clientes</router-link>
+					<router-link to="/cadastro-clientes" >Cadastro de clientes</router-link>
 				</li>
 				<li>
 					<router-link to="/cadastro-produtos">Cadastro de produtos</router-link>
@@ -35,7 +35,12 @@ export default {
 	name: 'HeaderComponent',
 	props: {
 		titulo: String
-	}
+	},
+	mounted(){
+		if(this.$route.path === '/'){
+			this.$router.push('/cadastro-clientes');
+		}
+	},
 }
 </script>
 

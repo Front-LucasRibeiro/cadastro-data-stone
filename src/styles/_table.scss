@@ -5,6 +5,10 @@ table{
 	border: 1px solid #ddd;
 	border-collapse: collapse;
 
+	.lista-vazia{
+		padding: 12px;
+	}
+
 	thead{
 		height: 40px;
 	}
@@ -14,6 +18,7 @@ table{
 		color: $sec-color;
 		font-weight: normal;
 	}
+
 	
 	td,th{
 		border: 1px solid #ddd;
@@ -28,5 +33,4 @@ table{
 			}
 		}
 	}
-
 }

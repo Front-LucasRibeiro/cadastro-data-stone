@@ -79,12 +79,44 @@ export default {
 	},
 	mounted() {
 		let clientes = JSON.parse(localStorage.getItem('clientes'))
-		this.listaClientes = clientes
+		let produtos = JSON.parse(localStorage.getItem('produtos'))
 
-		let produtos = localStorage.getItem('produtos')
-		this.listaProdutos = JSON.parse(produtos)
+		if (clientes !== null){
 
-		if(clientes === null){
+			clientes.map(cliente => {
+				if(cliente.ativo === 'sim'){
+					let produtosAssociadosAtivos = []
+	
+					if(cliente.produtosAssociados){
+						cliente.produtosAssociados = cliente.produtosAssociados.split(',')
+		
+						cliente.produtosAssociados.map(produtosAssociado => {
+							produtos.map(produto => {
+								if(produtosAssociado === produto.nome){
+									if(produto.ativo === 'sim'){
+										cliente.produtosAssociados = produto.nome
+										produtosAssociadosAtivos.push(cliente.produtosAssociados)
+									}
+								}
+							})
+						})	
+					}
+	
+					cliente.produtosAssociados = produtosAssociadosAtivos.join(',')
+					this.listaClientes.push(cliente)
+				}
+			})
+	
+	
+			produtos.map(produto => {
+				if (produto.ativo === 'sim') {
+					this.listaProdutos.push(produto)
+				} 
+			})
+		}
+
+
+		if (clientes === null || this.listaClientes.length === 0) {
 			this.listaVazia = true
 		}
 	},
@@ -144,6 +176,7 @@ export default {
 			})
 
 			this.showModal = true
+			this.showForm = false
 		},
 		selecionarProduto(e) {
 			let nome = e.target.dataset.nome

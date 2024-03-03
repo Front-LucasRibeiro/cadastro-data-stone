@@ -1,17 +1,17 @@
 <template>
-  <HeaderComponent titulo="Data Stone" />
+  <!-- <HeaderComponent titulo="Data Stone" /> -->
   <router-view></router-view>
   <FooterComponent copy="Data Stone - CNPJ: 29.128.179/0001-49 - Todos os direitos reservados." />
 </template>
 
 <script>
-import HeaderComponent from './components/HeaderComponent.vue'
+// import HeaderComponent from './components/HeaderComponent.vue'
 import FooterComponent from './components/FooterComponent.vue'
 
 export default {
   name: 'App',
   components: {
-    HeaderComponent,
+    // HeaderComponent,
     FooterComponent
   }
 }

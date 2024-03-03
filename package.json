@@ -11,12 +11,15 @@
     "core-js": "^3.8.3",
     "sass": "^1.71.1",
     "vue": "^3.2.13",
+    "vue-masked-input": "^0.5.2",
     "vue-route": "^1.5.1",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue-the-mask": "^0.11.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@babel/preset-env": "^7.24.0",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",

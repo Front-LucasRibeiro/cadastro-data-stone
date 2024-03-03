@@ -1,5 +1,5 @@
 <template>
-	<ModalMensagem msg="Cadastro realizado com sucesso" :exibe="showModal" @alterar-exibe-modal="changeExibeModal" />
+	<ModalMensagem :msg="msg" :exibe="showModal" @alterar-exibe-modal="changeExibeModal" />
 	<main class="main">
 		<h2 class="title">Cadastro de clientes</h2>
 
@@ -10,15 +10,17 @@
 			</div>
 			<div class="form__field">
 				<label for="documento">RG:</label>
-				<input type="text" name="documento" id="documento" v-model="formData.documento">
+				<input type="tel" v-mask="['##.###.###-#', '##.###.###-##']" name="documento" id="documento"
+					v-model="formData.documento">
 			</div>
 			<div class="form__field">
 				<label for="telefone">Telefone:</label>
-				<input type="text" name="telefone" id="telefone" v-model="formData.telefone">
+				<input type="tel" v-mask="['(##) ####-####', '(##) #####-####']" placeholder="(99) 9999-9999" name="telefone"
+					id="telefone" v-model="formData.telefone">
 			</div>
 			<div class="form__field">
 				<label for="email">E-mail:</label>
-				<input type="text" name="email" id="email" v-model="formData.email">
+				<input type="email" name="email" id="email" v-model="formData.email">
 			</div>
 			<div class="form__fieldRadio">
 				<label>Ativo:</label>
@@ -36,14 +38,19 @@
 
 <script>
 import ModalMensagem from "@/components/ModalMensagem.vue";
+import { mask } from 'vue-the-mask'
 
 export default {
 	name: 'CadastroClientes',
+	directives: {
+		mask
+	},
 	components: {
 		ModalMensagem,
 	},
 	data() {
 		return {
+			msg: '',
 			showModal: false,
 			formData: {
 				nome: '',
@@ -61,21 +68,48 @@ export default {
 
 			this.formData.ativo = valueInputRadio
 
-			if (clientesLista) {
-				clientesLista = JSON.parse(clientesLista)
-				clientesLista.push(this.formData)
-				localStorage.setItem('clientes', JSON.stringify(clientesLista))
+			let nomeValida = this.formData.nome.trim();
+			let nomeCompleto = nomeValida.split(' ');
 
-			} else {
-				localStorage.setItem('clientes', JSON.stringify([this.formData]))
+			// valida form 
+			if (nomeCompleto.length < 2) {
+				this.showModal = true
+				this.msg = 'Deve ser informado o nome completo'
 			}
+			else if (this.formData.documento === '') {
+				this.showModal = true
+				this.msg = 'O campo RG não pode ser vazio'
+			}
+			else if (this.formData.documento.length < 12) {
+				this.showModal = true
+				this.msg = 'O campo RG não é válido'
+			}
+			else if (this.formData.telefone === '') {
+				this.showModal = true
+				this.msg = 'O campo Telefone não pode ser vazio'
+			} else if (this.formData.telefone.length < 14) {
+				this.showModal = true
+				this.msg = 'O campo Telefone não é válido'
+			}
+			else {
 
-			this.showModal = true
+				if (clientesLista) {
+					clientesLista = JSON.parse(clientesLista)
+					clientesLista.push(this.formData)
+					localStorage.setItem('clientes', JSON.stringify(clientesLista))
 
-			this.formData.nome = ''
-			this.formData.documento = ''
-			this.formData.telefone = ''
-			this.formData.email = ''
+				} else {
+					localStorage.setItem('clientes', JSON.stringify([this.formData]))
+				}
+
+				this.msg = 'Cadastro realizado com sucesso'
+				this.showModal = true
+
+				this.formData.nome = ''
+				this.formData.documento = ''
+				this.formData.telefone = ''
+				this.formData.email = ''
+			}
 		},
 		changeExibeModal(novoValor) {
 			this.showModal = novoValor;

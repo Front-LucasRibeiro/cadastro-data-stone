@@ -57,7 +57,7 @@ export default {
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			border-radius: 0 0 0 3px;
+			border-radius: 0 3px 0 3px;
 			background-color: $main-color;
 			color: $sec-color;
 			cursor: pointer;
@@ -69,7 +69,7 @@ export default {
 		padding: 0 0 42px;
 		border-radius: 5px;
 		max-width: 480px;
-		width: 100%;
+		width: 96%;
 	}
 }
 </style>

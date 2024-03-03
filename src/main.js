@@ -5,6 +5,7 @@ import CadastroClientes from './components/CadastroClientes.vue';
 import CadastroProdutos from './components/CadastroProdutos.vue';
 import ListagemClientes from './components/ListagemClientes.vue';
 import ListagemProdutos from './components/ListagemProdutos.vue';
+import AssociarProdutos from './components/AssociarProdutos.vue';
 
 const routes = [
   { path: '/', component: CadastroClientes },
@@ -12,6 +13,7 @@ const routes = [
   { path: '/cadastro-produtos', component: CadastroProdutos },
   { path: '/clientes', component: ListagemClientes },
   { path: '/produtos', component: ListagemProdutos },
+  { path: '/associar-produtos', component: AssociarProdutos },
 ];
 
 const router = createRouter({
