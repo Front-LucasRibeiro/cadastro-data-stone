@@ -29,6 +29,7 @@ export default {
 	data(){
 		return {
       formData: {
+				id: 1,
         nome: '',
 				ativo: ''
       },
@@ -43,6 +44,10 @@ export default {
 
 			if(produtosLista){
 				produtosLista = JSON.parse(produtosLista)
+				
+				let tam = produtosLista.length
+				this.formData.id = Number(produtosLista[tam - 1].id) + 1;
+				
 				produtosLista.push(this.formData)
 				localStorage.setItem('produtos', JSON.stringify(produtosLista) )
 			}else{
