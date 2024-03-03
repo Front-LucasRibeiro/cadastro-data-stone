@@ -6,6 +6,9 @@
 		<h2 class="title">Associação de produtos</h2>
 
 		<div class="wrap">
+
+			<BarraPesquisa :lista="listaClientes" @nova-lista-filtrada="changeLista" tipoPesquisa="nome,rg" placeholderText="Digite o nome ou RG do cliente para fazer a busca..." />
+
 			<table>
 				<thead>
 					<th>Nome</th>
@@ -14,9 +17,9 @@
 				</thead>
 				<tbody>
 					<tr v-for="(item, index) in listaClientes" :key="index">
-						<td>{{ item.nome }}</td>
-						<td>{{ item.produtosAssociados }}</td>
-						<td>
+						<td v-if="item.exibeItem">{{ item.nome }}</td>
+						<td v-if="item.exibeItem">{{ item.produtosAssociados }}</td>
+						<td v-if="item.exibeItem">
 							<button class="button btn-table" :data-nome="item.nome" :data-documento="item.documento"
 								:data-itens="item.produtosAssociados" @click="editarCliente">
 								Editar
@@ -61,11 +64,13 @@
 
 <script>
 import ModalMensagem from "@/components/ModalMensagem.vue";
+import BarraPesquisa from "@/components/BarraPesquisa.vue";
 
 export default {
 	name: 'AssociarProdutos',
 	components: {
 		ModalMensagem,
+		BarraPesquisa
 	},
 	data() {
 		return {
@@ -202,8 +207,10 @@ export default {
 		},
 		changeExibeModal(novoValor) {
 			this.showModal = novoValor;
+		},
+		changeLista(novoValor){
+			this.listaClientes = novoValor;
 		}
-
 	},
 
 }

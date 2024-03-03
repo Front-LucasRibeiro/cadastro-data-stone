@@ -4,6 +4,8 @@
 	<main class="main">
 		<h2 class="title">Listagem de produtos</h2>
 
+		<BarraPesquisa :lista="listaProdutos" @nova-lista-filtrada="changeLista" tipoPesquisa="nome" placeholderText="Digite o nome do produto para fazer a busca..." />
+
 		<div class="wrap">
 			<table>
 				<thead>
@@ -14,15 +16,18 @@
 				</thead>
 				<tbody>
 					<tr v-for="(item, index) in listaProdutos" :key="index">
-						<td>{{ item.nome }}</td>
-						<td>{{ item.ativo }}</td>
-						<td>
-							<button class="button btn-table" :data-nome="item.nome" :data-id="item.id" :data-ativo="item.ativo" @click="editarProduto">
+						<td v-if="item.exibeItem">{{ item.nome }}</td>
+						<td v-if="item.exibeItem">{{ item.ativo }}</td>
+						<td v-if="item.exibeItem">
+							<button class="button btn-table" :data-nome="item.nome" :data-id="item.id" :data-ativo="item.ativo"
+								@click="editarProduto">
 								Editar
 							</button>
 						</td>
-						<td><button class="button btn-table" :data-ativo="item.ativo" :data-id="item.id" @click="mudarStatusProduto">Alterar
-								Status</button></td>
+						<td v-if="item.exibeItem"><button class="button btn-table" :data-ativo="item.ativo" :data-id="item.id"
+								@click="mudarStatusProduto">Alterar
+								Status</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -31,7 +36,7 @@
 		</div>
 
 		<div v-show="showForm">
-			
+
 			<h2 class="title">Formulário de edição:</h2>
 
 			<form class="form">
@@ -55,7 +60,7 @@
 						<label for="nao">Não</label>
 					</div>
 				</div>
-				<button type="submit" class="button"  @click="salvarEdicao">Salvar edição</button>
+				<button type="submit" class="button" @click="salvarEdicao">Salvar edição</button>
 			</form>
 		</div>
 
@@ -64,18 +69,20 @@
 
 <script>
 import ModalMensagem from "@/components/ModalMensagem.vue";
+import BarraPesquisa from "@/components/BarraPesquisa.vue";
 
 export default {
 	name: 'ListagemProdutos',
 	components: {
 		ModalMensagem,
+		BarraPesquisa
 	},
 	data() {
 		return {
 			showModal: false,
-			listaProdutos: [],
+			listaProdutos: JSON.parse(localStorage.getItem('produtos')),
 			showForm: false,
-			listaVazia: false
+			listaVazia: false,
 		};
 	},
 
@@ -83,7 +90,7 @@ export default {
 		let produtos = JSON.parse(localStorage.getItem('produtos'))
 		this.listaProdutos = produtos
 
-		if(produtos === null){
+		if (produtos === null) {
 			this.listaVazia = true
 		}
 	},
@@ -98,7 +105,7 @@ export default {
 				let ativo = e.target.dataset.ativo
 
 				let nomeInput = document.getElementById('nome')
-				nomeInput.value = nome				
+				nomeInput.value = nome
 				let idInput = document.getElementById('id')
 				idInput.value = id
 				let ativoInput = document.querySelector('input[name="ativo"]')
@@ -119,9 +126,9 @@ export default {
 			let nome = document.getElementById('nome').value
 			let id = Number(document.getElementById('id').value)
 			let ativo = document.querySelector('input[name="ativo"]:checked').value
-			
+
 			produtosLista.map(produto => {
-				if(produto.id === id){
+				if (produto.id === id) {
 					produto.nome = nome
 					produto.ativo = ativo
 				}
@@ -138,14 +145,14 @@ export default {
 			let ativo = e.target.dataset.ativo
 			let id = Number(e.target.dataset.id)
 
-			if(ativo === 'sim'){
+			if (ativo === 'sim') {
 				ativo = 'não'
-			}else{
+			} else {
 				ativo = 'sim'
 			}
 
 			produtosLista.map(produto => {
-				if(produto.id === id){
+				if (produto.id === id) {
 					produto.ativo = ativo
 				}
 			})
@@ -156,11 +163,14 @@ export default {
 			this.showModal = true
 			this.showForm = false;
 		},
-		fecharForm(){
+		fecharForm() {
 			this.showForm = false;
 		},
 		changeExibeModal(novoValor) {
 			this.showModal = novoValor;
+		},
+		changeLista(novoValor){
+			this.listaProdutos = novoValor;
 		}
 	},
 

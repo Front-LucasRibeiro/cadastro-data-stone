@@ -5,6 +5,9 @@
 		<h2 class="title">Listagem de clientes</h2>
 
 		<div class="wrap">
+
+			<BarraPesquisa :lista="listaClientes" @nova-lista-filtrada="changeLista" tipoPesquisa="nome,rg" placeholderText="Digite o nome ou RG do cliente para fazer a busca..." />
+
 			<table>
 				<thead>
 					<th>Nome</th>
@@ -17,19 +20,21 @@
 				</thead>
 				<tbody>
 					<tr v-for="(item, index) in listaClientes" :key="index">
-						<td>{{ item.nome }}</td>
-						<td>{{ item.documento }}</td>
-						<td>{{ item.telefone }}</td>
-						<td>{{ item.email }}</td>
-						<td>{{ item.ativo }}</td>
-						<td>
+						<td v-if="item.exibeItem">{{ item.nome }}</td>
+						<td v-if="item.exibeItem">{{ item.documento }}</td>
+						<td v-if="item.exibeItem">{{ item.telefone }}</td>
+						<td v-if="item.exibeItem">{{ item.email }}</td>
+						<td v-if="item.exibeItem">{{ item.ativo }}</td>
+						<td v-if="item.exibeItem">
 							<button class="button btn-table" :data-nome="item.nome" :data-documento="item.documento"
 								:data-telefone="item.telefone" :data-email="item.email" :data-ativo="item.ativo" @click="editarCliente">
 								Editar
 							</button>
 						</td>
-						<td><button class="button btn-table" :data-ativo="item.ativo" :data-documento="item.documento" @click="mudarStatusCliente">Alterar
-								Status</button></td>
+						<td v-if="item.exibeItem"><button class="button btn-table" :data-ativo="item.ativo" :data-documento="item.documento"
+								@click="mudarStatusCliente">Alterar
+								Status</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -38,7 +43,7 @@
 		</div>
 
 		<div v-show="showForm">
-			
+
 			<h2 class="title">Formulário de edição:</h2>
 
 			<form class="form">
@@ -80,16 +85,18 @@
 
 <script>
 import ModalMensagem from "@/components/ModalMensagem.vue";
+import BarraPesquisa from "@/components/BarraPesquisa.vue";
 
 export default {
 	name: 'ListagemClientes',
 	components: {
 		ModalMensagem,
+		BarraPesquisa
 	},
 	data() {
 		return {
 			showModal: false,
-			listaClientes: [],
+			listaClientes: JSON.parse(localStorage.getItem('clientes')),
 			showForm: false,
 			listaVazia: false
 		};
@@ -99,7 +106,7 @@ export default {
 		let clientes = JSON.parse(localStorage.getItem('clientes'))
 		this.listaClientes = clientes
 
-		if(clientes === null){
+		if (clientes === null) {
 			this.listaVazia = true
 		}
 	},
@@ -143,9 +150,9 @@ export default {
 			let telefone = document.getElementById('telefone').value
 			let email = document.getElementById('email').value
 			let ativo = document.querySelector('input[name="ativo"]:checked').value
-			
+
 			clientesLista.map(cliente => {
-				if(cliente.documento === documento){
+				if (cliente.documento === documento) {
 					cliente.nome = nome
 					cliente.documento = documento
 					cliente.telefone = telefone
@@ -165,14 +172,14 @@ export default {
 			let ativo = e.target.dataset.ativo
 			let documento = e.target.dataset.documento
 
-			if(ativo === 'sim'){
+			if (ativo === 'sim') {
 				ativo = 'não'
-			}else{
+			} else {
 				ativo = 'sim'
 			}
 
 			clientesLista.map(cliente => {
-				if(cliente.documento === documento){
+				if (cliente.documento === documento) {
 					cliente.ativo = ativo
 				}
 			})
@@ -183,11 +190,14 @@ export default {
 			this.showModal = true
 			this.showForm = false;
 		},
-		fecharForm(){
+		fecharForm() {
 			this.showForm = false;
 		},
 		changeExibeModal(novoValor) {
 			this.showModal = novoValor;
+		},
+		changeLista(novoValor){
+			this.listaClientes = novoValor;
 		}
 	},
 

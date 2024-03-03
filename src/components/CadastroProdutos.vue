@@ -37,7 +37,8 @@ export default {
       formData: {
 				id: 1,
         nome: '',
-				ativo: ''
+				ativo: '',
+				exibeItem: true
       },
     };
 	},

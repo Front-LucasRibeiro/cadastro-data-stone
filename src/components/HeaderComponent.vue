@@ -48,7 +48,7 @@ export default {
 		}
 	},
 	mounted() {
-		if (this.$route.path === '/') {
+		if (window.location.pathname === '/') {
 			this.$router.push('/cadastro-clientes');
 		}
 

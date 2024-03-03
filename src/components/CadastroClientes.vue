@@ -57,7 +57,8 @@ export default {
 				documento: '',
 				telefone: '',
 				email: '',
-				ativo: ''
+				ativo: '',
+				exibeItem: true
 			},
 		};
 	},
