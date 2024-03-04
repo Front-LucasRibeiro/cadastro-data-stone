@@ -1,14 +1,12 @@
-// MeuComponente.spec.js
 import { mount } from '@vue/test-utils';
 import CadastroClientes from '@/components/CadastroClientes.vue';
 
 describe('CadastroClientes', () => {
-  it('deve mostrar a mensagem cadastro realizado', () => {
+  it('deve conter o botão de cadastro', () => {
     const wrapper = mount(CadastroClientes);
 
     // Asserções
-    expect(wrapper.find('button[type="submit"]').exists()).toBe(false);
+		const botao = wrapper.find('.button');
+    expect(botao.exists()).toBe(true);
   });
-
-  // Adicione mais testes conforme necessário
 });

@@ -8,7 +8,9 @@
 ``` bash
 # 1 - install dependencies
 # 1 - instalar dependências do projeto em ambiente local, antes de executar o projeto
+npm install -g @vue/cli
 npm install
+
 
 # 2 - serve with hot reload at localhost:8080
 # 2 - rodar arquivos para desenvolvimento em ambiente local http://localhost:8080/
@@ -30,3 +32,11 @@ https://github.com/coreybutler/nvm-windows/releases/tag/1.1.9
  - nvm ls (ver a versão do node que está sendo utilizada)
  - nvm use (alterar a versão do node que está sendo utilizada Ex: nvm use 16.20.2)
 
+
+# Como foi resolver o teste:
+
+Primeiro fiz um planejamento de como faria as telas e quais ferramentas utilizaria, criei a estrurura de componentes header, footer e paginas e alguns componentes para serem reutilizados modal e barra de pesquisa.
+
+Componetizei alguns estilos css para serem usados no projeto com sass/scss,utilizei a metodologia BEM não utilizei nenhuma lib para estilo do projeto, utilizar medidas relativas de fontes.
+
+Utilizei rotas e armazenei os dados da aplicação direto no navegador no localStorage.
